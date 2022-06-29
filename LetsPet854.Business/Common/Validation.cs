@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using LetsPet854.Domain.Common.Enuns;
 
 namespace LetsPet854.Business.Common
 {
