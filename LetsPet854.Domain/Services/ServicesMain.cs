@@ -17,8 +17,8 @@ namespace LetsPet854.Domain.Services
         {
             Console.Clear();
             Console.WriteLine("Opções de serviço:");
-            Console.WriteLine("1 - Cadastro de Serviços e Descontos\n2 - Buscar serviço\n3 - Relatório de serviços prestados\n4 - Relatório de produtos por serviço prestado");
-            option = Validations.Options(1, 4);
+            Console.WriteLine("1 - Cadastro de Serviços e Descontos\n2 - Buscar serviço\n3 - Relatório de serviços prestados\n4 - Relatório de produtos por serviço prestado\n5 - Retornar ao Menu anterior");
+            option = Validations.Options(1, 5);
             switch (option)
             {
                 case 1:
@@ -36,6 +36,8 @@ namespace LetsPet854.Domain.Services
                     break;
                 case 4:
                     break;
+                case 5:
+                    return;
             }
             EndProgram();
         }

@@ -5,6 +5,6 @@
         Sim = 1,
         Não = 2,
         Sair = 3,
-        Retornar = 4,
+        Retornar = 4
     }
 }
