@@ -17,10 +17,7 @@ namespace LetsPet854.Presentation.Pets
             do
             {
                Console.WriteLine();
-                while (!int.TryParse(Console.ReadLine(), out optionInput) || (optionInput < 1 || optionInput > 5))
-                {
-                    Console.WriteLine("\nDigite um valor válido: ");
-                }
+                int.TryParse(Console.ReadLine(), out optionInput);
                 switch (optionInput)
                 {
                     case 1:
@@ -28,13 +25,13 @@ namespace LetsPet854.Presentation.Pets
                         Console.WriteLine("Tela para Cadastrar Tutor");
                         GuardianRegister.RegisterGuardian();
                         MenuHeader();
-                        break;
+                        return;
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Tela para Cadastrar Pet");
                         RegisterAnimal.AnimalRegister();
                         MenuHeader();
-                        break;
+                        return;
                     case 3:
                         Console.Clear();
                         Console.WriteLine("Tela para Consultar Tutor");
@@ -48,19 +45,17 @@ namespace LetsPet854.Presentation.Pets
                         PrintGuardian.PrintTutor(guardianSearchResult);
                         Console.ReadKey();
                         MenuHeader();
-                        break;
+                        return;
                     case 4:
                         Console.Clear();
                         Console.WriteLine("Tela para Consultar Pet");
                         Console.WriteLine("Não implementado");
                         //Search.Options(); fazer consulta
-                        break;
+                        return;
                     case 5:
                         Console.Clear();
-                        Console.WriteLine("volatr ao menu inicial");
-                        Console.WriteLine("Não implementado");
-                        // voltar a tela inicial
-                        break;
+                        Console.WriteLine("voltar ao menu inicial");
+                        return;
                     default:
                         Console.Clear();
                         Console.WriteLine("Opção Inválida");
