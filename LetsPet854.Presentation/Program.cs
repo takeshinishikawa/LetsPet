@@ -2,6 +2,8 @@ using LetsPet854.Domain.Pets;
 using LetsPet854.Domain.Services;
 using LetsPet854.Presentation.Animals;
 using LetsPet854.Presentation.Pets;
+using LetsPet854.Presentation.Attendance;
+
 
 namespace LetsPet854.Presentation
 {
@@ -27,6 +29,7 @@ namespace LetsPet854.Presentation
                     MenuEmployee.DefaultMenu();
                     break;
                 case 4:
+                    MenuAttendance.MainMenu();
                     break;
                 case 5:
                     break;
