@@ -2,6 +2,8 @@ using LetsPet854.Domain.Pets;
 using LetsPet854.Domain.Services;
 using LetsPet854.Presentation.Animals;
 using LetsPet854.Presentation.Pets;
+using LetsPet854.Presentation.Attendance;
+
 
 namespace LetsPet854.Presentation
 {
@@ -14,8 +16,8 @@ namespace LetsPet854.Presentation
             MenuInicial:
                 Console.Clear();
                 Console.WriteLine("Bem vindo ao Let's Pet");
-                Console.WriteLine("Qual menu você deseja acessar?");
-                Console.WriteLine("1 - Pets e Tutores \n2 - Serviços\n3 - Funcionários\n4 - Atendimentos\n5 - Produtos\n6 - Sair");
+                Console.WriteLine("Qual menu vocï¿½ deseja acessar?");
+                Console.WriteLine("1 - Pets e Tutores \n2 - Serviï¿½os\n3 - Funcionï¿½rios\n4 - Atendimentos\n5 - Produtos\n6 - Sair");
 
                 switch (Validations.Options(1, 5))
                 {
@@ -42,7 +44,7 @@ namespace LetsPet854.Presentation
 
         public static void EndProgram()
         {
-            Console.WriteLine($"Deseja realizar outra operação?\n1 - Sim\n2 - Não");
+            Console.WriteLine($"Deseja realizar outra operaï¿½ï¿½o?\n1 - Sim\n2 - Nï¿½o");
             if (Validations.Options(1, 2) == 1)
                 Main();
             else
