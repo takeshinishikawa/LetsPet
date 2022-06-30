@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LetsPet854.Domain.Common.Enuns;
 using LetsPet854.Domain.Pets;
 
-namespace LetsPet854.Business.Attendence
+namespace LetsPet854.Business.Attendance
 {
     public class Validation
     {
@@ -115,7 +115,26 @@ namespace LetsPet854.Business.Attendence
 
             return petMatches;
         }
+        /*public static int ValidateIntInput(int opcaoMax, string question, string ErrorMessage = "O input é inválido")
+        {
+            string response;
+            bool validation;
+            do
+            {
+                Console.WriteLine(question);
+                response = Console.ReadLine();
+                validation = string.IsNullOrWhiteSpace(response);
+
+                if (validation)
+                {
+                    Console.WriteLine(ErrorMessage);
+                }
+            } while (validation);
+
+            return response;
+        }*/
     }
+
 }
 
 

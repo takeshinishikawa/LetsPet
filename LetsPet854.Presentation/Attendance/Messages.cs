@@ -17,6 +17,7 @@ namespace LetsPet854.Presentation.Attendance
 3 - Relatório de caixa
 4 - Retornar ao menu anterior";
 
+        public const string HeaderAgendar = "========== AGENDAR ATENDIMENTO ==========";
         public const string InvalidOption = @"Opção inválida!
 Digite novamente.";
 
@@ -27,6 +28,8 @@ Digite novamente.";
         public const string RecuseByAgressiveness = @"O atendimento não poderá ser realizado, pois o pet foi inicialmente identificado como agressivo.";
 
         public const string AskCPFTutor = @"Por favor, digite o CPF do tutor.";
+        public const string RecuseByNull = "Não são aceitos campos vazios.";
+        public const string RecuseByNullPetList = "Não há pets cadastrados para este tutor.";
         public const string notRegisteredCPFTutor = @"O CPF não está em nossa base de cadastro. Você será redirecionado para o cadastro de Tutor.";
         public static int OpcaoPet(Guardian guardian)
         {

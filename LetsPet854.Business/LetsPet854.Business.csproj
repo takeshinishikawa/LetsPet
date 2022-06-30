@@ -11,4 +11,8 @@
     <ProjectReference Include="..\LetsPet854.Infra\LetsPet854.Infra.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Attendence\" />
+  </ItemGroup>
+
 </Project>
