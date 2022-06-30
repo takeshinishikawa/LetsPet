@@ -134,7 +134,31 @@ namespace LetsPet854.Business.Attendance
                 }
             } while (validation);
 
-            return responseInt;
+            return response;
+        }*/
+
+        public static bool CheckValidDate(DateTime date)
+        {
+            if (date.DayOfWeek == DayOfWeek.Sunday)
+            {
+                return false;
+            }
+            else 
+            { 
+                return true; 
+            }
+        }
+
+        public static bool CheckValidTime(int time)
+        {
+            if (time < 9 && time > 18)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 
