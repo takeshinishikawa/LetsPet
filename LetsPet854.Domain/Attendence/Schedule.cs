@@ -14,7 +14,8 @@ namespace LetsPet854.Domain.Attendence
         public Guid Id { get; set; } //etapa1
         public string Tutor { get; set; } //etapa1
         public Animal Pet { get; set; } //etapa1
-        public Dictionary<Service, List<Employee>> ServiceEmployees { get; set; } //etapa1
+        public Service Service { get; set; } //etapa1
+        public List <Employee> Employees { get; set; } //etapa1
         public bool TempSpecialNeeds { get; set; } //etapa1
         public string Notes { get; set; }//etapa1
         public DateTime ScheduleDateTime { get; set; }//etapa1
@@ -29,12 +30,13 @@ namespace LetsPet854.Domain.Attendence
         public double ServiceValueReal { get; set; }
         public PaymentMethod PaymentMethod { get; set; }
 
-        public Schedule(string tutor, ref Animal pet, Dictionary<Service, List<Employee>> servEmpl, bool isSpecial, string notes, DateTime scheduleDateTime, double valueDiscount, double serviceValueExpected)
+        public Schedule(string tutor, ref Animal pet, Service service, List<Employee> employees, bool isSpecial, string notes, DateTime scheduleDateTime, double valueDiscount, double serviceValueExpected)
         {
-            Id = new Guid();
+            Id = Guid.NewGuid();
             Tutor = tutor;
             Pet = pet;
-            ServiceEmployees = servEmpl;
+            Service = Service;
+            Employees = employees;
             TempSpecialNeeds = isSpecial;
             Notes = notes;
             ScheduleDateTime = scheduleDateTime;
