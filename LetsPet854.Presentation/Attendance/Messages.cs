@@ -21,6 +21,7 @@ namespace LetsPet854.Presentation.Attendance
         public const string InvalidOption = @"Opção inválida!
 Digite novamente.";
 
+        public const string RecuseByInvalidCPF = @"CPF inválido.";
         public const string RecuseByAge = @"O atendimento não poderá ser realizado, pois o pet não atingiu a idade mínima (2 meses).";
 
         public const string RecuseByInvalidRageVaccine = @"O atendimento não poderá ser realizado, pois o pet não está com a vacina de raiva em dia.";
@@ -39,7 +40,7 @@ Digite novamente.";
                 Console.WriteLine($"{opcao} - {item.Name}");
                 opcao++;
             }
-            return opcao;
+            return opcao - 1;
         }
         public const string SelectPetName = @"
 O atendimento será para qual pet?

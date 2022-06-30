@@ -20,9 +20,9 @@ namespace LetsPet854.Presentation.Attendance
         {
             Console.WriteLine(Messages.HeaderAgendar);
             string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskCPFTutor, Messages.RecuseByNull);
-            if (Business.Attendance.Validation.ValidCPF(resposta) == false)
+            if (!Business.Common.Validation.IsCpfValid(resposta) || !Business.Attendance.Validation.ValidCPF(resposta))
             {
-                Console.WriteLine("CPF inválido.");
+                Console.WriteLine(Messages.RecuseByInvalidCPF);
                 CreateScheduleMain();
             }
             var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
@@ -40,23 +40,19 @@ namespace LetsPet854.Presentation.Attendance
                 Console.WriteLine(Messages.RecuseByNullPetList);
                 RegisterAnimal.AnimalRegister();
             }
-            //PrintGuardian.PrintTutor(guardianSearchResult);
-            int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
-            //criar dict
-            //solicitar escolha do pet
-            Business.Attendance.Validations.ValidateIntInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.")
-            //Console.WriteLine(Messages.SelectPetName);
-            Console.WriteLine(Messages.SelectPetNumber);
-            resposta = Console.ReadLine();
             
-            int opcao;
-            int.TryParse(resposta, out opcao);
-
+            int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
+            
+            int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
 
             Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref guardianSearchResult, opcao), guardianSearchResult.PetList);
+            if (pet.TwoMonthsBool())
+            {
+                Console.WriteLine(Messages.RecuseByAge);
+                return;
+            }
 
-            Console.WriteLine("DEU CERTO!");
-            PrintAnimal.PrintPet(pet);
+            PrintAnimal.PrintPet(pet); //apenas para teste, retirar depois
             Console.ReadKey();
             Console.Clear();
 

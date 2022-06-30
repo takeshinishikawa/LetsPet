@@ -115,24 +115,27 @@ namespace LetsPet854.Business.Attendance
 
             return petMatches;
         }
-        /*public static int ValidateIntInput(int opcaoMax, string question, string ErrorMessage = "O input é inválido")
+        public static int ValidateIntIntervalInput(int opcaoMax, string question, string ErrorMessage = "O input é inválido")
         {
+            int opcaoMin = 1;
             string response;
-            bool validation;
+            int responseInt;
+            bool validation = true;
             do
             {
                 Console.WriteLine(question);
                 response = Console.ReadLine();
                 validation = string.IsNullOrWhiteSpace(response);
-
-                if (validation)
+                int.TryParse(response, out responseInt);
+                if (validation || responseInt < opcaoMin || responseInt > opcaoMax)
                 {
                     Console.WriteLine(ErrorMessage);
+                    validation = true;
                 }
             } while (validation);
 
-            return response;
-        }*/
+            return responseInt;
+        }
     }
 
 }
