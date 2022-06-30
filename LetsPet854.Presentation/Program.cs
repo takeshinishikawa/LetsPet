@@ -32,7 +32,8 @@ namespace LetsPet854.Presentation
                         MenuEmployee.DefaultMenu();
                         goto MenuInicial;
                     case 4:
-                        break;
+                        MenuAttendance.MainMenu();
+                        goto MenuInicial;
                     case 5:
                         break;
                     case 6:
