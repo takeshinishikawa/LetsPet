@@ -4,6 +4,6 @@
     {
         Leve = 1,
         Médio = 2,
-        Grave =3,
+        Grave = 3,
     }
 }
