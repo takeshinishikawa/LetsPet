@@ -19,13 +19,15 @@ namespace LetsPet854.Presentation.Attendance
         public static void CreateScheduleMain()
         {
             Console.WriteLine(Messages.AskCPFTutor);
-            string tempCPF = Console.ReadLine();
-            if (Validation.ValidaCPF(tempCPF) == false)
+            string resposta = Console.ReadLine();
+            
+            //Tools.StdString(ref tempCPF);
+            if (Validation.ValidaCPF(resposta) == false)
             {
                 Console.WriteLine("CPF inválido.");
                 CreateScheduleMain();
             }
-            var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(tempCPF);
+            var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
             if (guardianSearchResult == null)
             {
                 Console.WriteLine(Messages.notRegisteredCPFTutor);
@@ -33,11 +35,24 @@ namespace LetsPet854.Presentation.Attendance
                 GuardianRegister.RegisterGuardian();
                 CreateScheduleMain(); //retorna para agendamento após cadastro do tutor
             }
-            PrintGuardian.PrintTutor(guardianSearchResult);
+            string tempCPF = resposta;
+            //PrintGuardian.PrintTutor(guardianSearchResult);
+            Messages.OpcaoPet(guardianSearchResult);
             //criar dict
             //solicitar escolha do pet
 
-            Console.WriteLine(Messages.SelectPetName);
+            //Console.WriteLine(Messages.SelectPetName);
+            Console.WriteLine(Messages.SelectPetNumber);
+            resposta = Console.ReadLine();
+            int opcao;
+            int.TryParse(resposta, out opcao);
+
+
+            Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref guardianSearchResult, opcao), guardianSearchResult.PetList);
+
+            Console.WriteLine("DEU CERTO!");
+            PrintAnimal.PrintPet(pet);
+            Console.ReadKey();
             Console.Clear();
 
         }

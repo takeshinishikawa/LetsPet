@@ -16,7 +16,6 @@ namespace LetsPet854.Business.Attendence
             {
                 return true;
             }
-
             else
             {
                 return false;
