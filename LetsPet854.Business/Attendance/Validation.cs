@@ -134,8 +134,8 @@ namespace LetsPet854.Business.Attendance
                 }
             } while (validation);
 
-            return response;
-        }*/
+            return responseInt;
+        }
 
         public static bool CheckValidDate(DateTime date)
         {

@@ -25,7 +25,9 @@ Digite novamente.";
         public const string RecuseByAge = @"O atendimento não poderá ser realizado, pois o pet não atingiu a idade mínima (2 meses).";
 
         public const string RecuseByInvalidRageVaccine = @"O atendimento não poderá ser realizado, pois o pet não está com a vacina de raiva em dia.";
-
+        public const string AskAgressiveness = @"O seu Pet apresenta agressividade?
+1 - SIM
+2 - NÃO";
         public const string RecuseByAgressiveness = @"O atendimento não poderá ser realizado, pois o pet foi inicialmente identificado como agressivo.";
 
         public const string AskCPFTutor = @"Por favor, digite o CPF do tutor.";

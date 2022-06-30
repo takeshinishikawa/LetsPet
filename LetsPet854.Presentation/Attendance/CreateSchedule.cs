@@ -51,7 +51,28 @@ namespace LetsPet854.Presentation.Attendance
                 Console.WriteLine(Messages.RecuseByAge);
                 return;
             }
+            //INCLUIR AQUI VALIDAÇÃO DE VACINAS <-----------------------------------------------------
 
+            //isAgressive() <- verificar para atualizar agressividade
+            if (!pet.AggressiveBool)
+            {
+                VerificarAgressividade:
+                int respostaInt;
+                resposta = Business.Common.Validation.ValidateStringInput(Messages.AskAgressiveness, Messages.InvalidOption);
+                bool ehNum = int.TryParse(resposta, out respostaInt);
+                if (!ehNum || !Business.Attendance.Validation.CheckAnswer(respostaInt))
+                {
+                    Console.WriteLine(Messages.InvalidOption);
+                    goto VerificarAgressividade;
+                }
+                else if (respostaInt == 1)
+                    pet.AggressiveBool = true;
+            }
+            if (pet.AggressiveBool)
+            {
+                Console.WriteLine(Messages.RecuseByAgressiveness);
+                return;
+            }
             PrintAnimal.PrintPet(pet); //apenas para teste, retirar depois
             Console.ReadKey();
             Console.Clear();
