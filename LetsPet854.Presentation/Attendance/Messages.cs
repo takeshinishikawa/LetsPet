@@ -26,6 +26,7 @@ Digite novamente.";
         public const string RecuseByAgressiveness = @"O atendimento não poderá ser realizado, pois o pet foi inicialmente identificado como agressivo.";
 
         public const string AskCPFTutor = @"Por favor, digite o CPF do tutor.";
+        public const string notRegisteredCPFTutor = @"O CPF não está em nossa base de cadastro. Você será redirecionado para o cadastro de Tutor.";
 
         public const string SelectPetName = @"
 O atendimento será para qual pet?

@@ -34,7 +34,7 @@ namespace LetsPet854.Presentation.Attendance
             switch (opcaoEscolhida)
             {
                 case 1:
-                    RegisterScheduling.SchedulingRegister();
+                    CreateSchedule.CreateScheduleMain();
                     break;
                 case 2:
                     SearchSchedule.SearchSchedulings();

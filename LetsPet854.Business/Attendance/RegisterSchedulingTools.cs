@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LetsPet854.Business.Attendance
 {
-    public class RegisterScheduling
+    public class RegisterSchedulingTools
     {
         public static void CreateSchedule()
         {
@@ -14,7 +14,6 @@ namespace LetsPet854.Business.Attendance
         }
         public static void SchedulingRegister()
         {
-
         }
     }
 }
