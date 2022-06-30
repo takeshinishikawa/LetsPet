@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LetsPet854.Domain.Common.Enuns;
 using LetsPet854.Domain.Pets;
 
-namespace LetsPet854.Business.Attendence
+namespace LetsPet854.Business.Attendance
 {
     public class Validation
     {
@@ -16,7 +16,6 @@ namespace LetsPet854.Business.Attendence
             {
                 return true;
             }
-
             else
             {
                 return false;
@@ -116,27 +115,26 @@ namespace LetsPet854.Business.Attendence
 
             return petMatches;
         }
-
-        //Método avalida se a data cai num domingo ou não, mas seria bom verificar feriados..
-        public static bool CheckValidDate(DateTime data)
+        /*public static int ValidateIntInput(int opcaoMax, string question, string ErrorMessage = "O input é inválido")
         {
-            if (data.DayOfWeek == DayOfWeek.Sunday)
+            string response;
+            bool validation;
+            do
             {
-                return false;
-            }
-            else return true;
-        }
+                Console.WriteLine(question);
+                response = Console.ReadLine();
+                validation = string.IsNullOrWhiteSpace(response);
 
-        //Metodo verifica se o horário escolhido está dentro do horário comercial
-        public static bool CheckValidTime(int time)
-        {
-            if (time >= 9 && time <= 18)
-            {
-                return true;
-            }
-            else return false;
-        } 
+                if (validation)
+                {
+                    Console.WriteLine(ErrorMessage);
+                }
+            } while (validation);
+
+            return response;
+        }*/
     }
+
 }
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LetsPet854.Domain.Pets;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,7 @@ namespace LetsPet854.Presentation.Attendance
 3 - Relatório de caixa
 4 - Retornar ao menu anterior";
 
+        public const string HeaderAgendar = "========== AGENDAR ATENDIMENTO ==========";
         public const string InvalidOption = @"Opção inválida!
 Digite novamente.";
 
@@ -26,11 +28,25 @@ Digite novamente.";
         public const string RecuseByAgressiveness = @"O atendimento não poderá ser realizado, pois o pet foi inicialmente identificado como agressivo.";
 
         public const string AskCPFTutor = @"Por favor, digite o CPF do tutor.";
+        public const string RecuseByNull = "Não são aceitos campos vazios.";
+        public const string RecuseByNullPetList = "Não há pets cadastrados para este tutor.";
         public const string notRegisteredCPFTutor = @"O CPF não está em nossa base de cadastro. Você será redirecionado para o cadastro de Tutor.";
-
+        public static int OpcaoPet(Guardian guardian)
+        {
+            int opcao = 1;
+            foreach (var item in guardian.PetList)
+            {
+                Console.WriteLine($"{opcao} - {item.Name}");
+                opcao++;
+            }
+            return opcao;
+        }
         public const string SelectPetName = @"
 O atendimento será para qual pet?
 Digite o nome do pet:";
+        public const string SelectPetNumber = @"
+O atendimento será para qual pet?
+Digite o número do pet:";
 
         public const string AskRecentVaccine = @"
 No nosso sistema consta que a vacina de raiva do seu pet está vencida..

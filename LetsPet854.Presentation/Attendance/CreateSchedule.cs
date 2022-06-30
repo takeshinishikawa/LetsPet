@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LetsPet854.Business.Attendance;
-using LetsPet854.Business.Attendence;
 using LetsPet854.Business.Pets;
 using LetsPet854.Domain.Pets;
 using LetsPet854.Domain.Services;
 using LetsPet854.Presentation.Animals;
 using LetsPet854.Presentation.Attendance;
+using LetsPet854.Business.Common;
 
 
 namespace LetsPet854.Presentation.Attendance
@@ -18,14 +18,14 @@ namespace LetsPet854.Presentation.Attendance
     {
         public static void CreateScheduleMain()
         {
-            Console.WriteLine(Messages.AskCPFTutor);
-            string tempCPF = Console.ReadLine();
-            if (Validation.ValidaCPF(tempCPF) == false)
+            Console.WriteLine(Messages.HeaderAgendar);
+            string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskCPFTutor, Messages.RecuseByNull);
+            if (Business.Attendance.Validation.ValidCPF(resposta) == false)
             {
                 Console.WriteLine("CPF inválido.");
                 CreateScheduleMain();
             }
-            var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(tempCPF);
+            var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
             if (guardianSearchResult == null)
             {
                 Console.WriteLine(Messages.notRegisteredCPFTutor);
@@ -33,11 +33,31 @@ namespace LetsPet854.Presentation.Attendance
                 GuardianRegister.RegisterGuardian();
                 CreateScheduleMain(); //retorna para agendamento após cadastro do tutor
             }
-            PrintGuardian.PrintTutor(guardianSearchResult);
+            string tempCPF = resposta;
+            //verificar quantidade de animais
+            if (guardianSearchResult.PetList.Count() < 0)
+            {
+                Console.WriteLine(Messages.RecuseByNullPetList);
+                RegisterAnimal.AnimalRegister();
+            }
+            //PrintGuardian.PrintTutor(guardianSearchResult);
+            int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
             //criar dict
             //solicitar escolha do pet
+            Business.Attendance.Validations.ValidateIntInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.")
+            //Console.WriteLine(Messages.SelectPetName);
+            Console.WriteLine(Messages.SelectPetNumber);
+            resposta = Console.ReadLine();
+            
+            int opcao;
+            int.TryParse(resposta, out opcao);
 
-            Console.WriteLine(Messages.SelectPetName);
+
+            Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref guardianSearchResult, opcao), guardianSearchResult.PetList);
+
+            Console.WriteLine("DEU CERTO!");
+            PrintAnimal.PrintPet(pet);
+            Console.ReadKey();
             Console.Clear();
 
         }
