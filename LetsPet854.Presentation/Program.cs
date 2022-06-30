@@ -16,8 +16,8 @@ namespace LetsPet854.Presentation
             MenuInicial:
                 Console.Clear();
                 Console.WriteLine("Bem vindo ao Let's Pet");
-                Console.WriteLine("Qual menu voc� deseja acessar?");
-                Console.WriteLine("1 - Pets e Tutores \n2 - Servi�os\n3 - Funcion�rios\n4 - Atendimentos\n5 - Produtos\n6 - Sair");
+                Console.WriteLine("Qual menu você deseja acessar?");
+                Console.WriteLine("1 - Pets e Tutores \n2 - Serviços\n3 - Funcionários\n4 - Atendimentos\n5 - Produtos\n6 - Sair");
 
                 switch (Validations.Options(1, 5))
                 {
