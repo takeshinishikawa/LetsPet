@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LetsPet854.Domain.Common.Enuns;
+using LetsPet854.Domain.Pets;
 
 namespace LetsPet854.Business.Attendence
 {
@@ -33,6 +34,13 @@ namespace LetsPet854.Business.Attendence
             {
                 return false;
             }
+        }
+
+        public static bool CheckPETName (string petName, List <Animal> PetList)
+        {
+            bool petMatches = PetList.Any(x => x.Name == petName);
+
+            return petMatches;
         }
     }
 }
