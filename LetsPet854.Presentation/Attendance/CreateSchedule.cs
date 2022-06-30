@@ -22,7 +22,7 @@ namespace LetsPet854.Presentation.Attendance
             string resposta = Console.ReadLine();
             
             //Tools.StdString(ref tempCPF);
-            if (Validation.ValidaCPF(resposta) == false)
+            if (Validation.ValidCPF(resposta) == false)
             {
                 Console.WriteLine("CPF inválido.");
                 CreateScheduleMain();
