@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using LetsPet854.Business.Attendance;
 using LetsPet854.Business.Pets;
 using LetsPet854.Domain.Pets;
-using LetsPet854.Domain.Services;
+using LetsPet854.Domain;
 using LetsPet854.Presentation.Animals;
 using LetsPet854.Presentation.Attendance;
 using LetsPet854.Business.Common;
@@ -18,6 +18,7 @@ namespace LetsPet854.Presentation.Attendance
     {
         public static void CreateScheduleMain()
         {
+            Console.Clear();
             Console.WriteLine(Messages.HeaderAgendar);
             string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskCPFTutor, Messages.RecuseByNull);
             if (!Business.Common.Validation.IsCpfValid(resposta) || !Business.Attendance.Validation.ValidCPF(resposta))
@@ -38,17 +39,18 @@ namespace LetsPet854.Presentation.Attendance
             if (guardianSearchResult.PetList.Count() < 0)
             {
                 Console.WriteLine(Messages.RecuseByNullPetList);
+                Console.ReadKey();
                 RegisterAnimal.AnimalRegister();
             }
             
             int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
-            
             int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
 
             Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref guardianSearchResult, opcao), guardianSearchResult.PetList);
             if (pet.TwoMonthsBool())
             {
                 Console.WriteLine(Messages.RecuseByAge);
+                Console.ReadKey();
                 return;
             }
             //INCLUIR AQUI VALIDAÇÃO DE VACINAS <-----------------------------------------------------
@@ -71,8 +73,15 @@ namespace LetsPet854.Presentation.Attendance
             if (pet.AggressiveBool)
             {
                 Console.WriteLine(Messages.RecuseByAgressiveness);
+                Console.ReadKey();
                 return;
             }
+
+            //método para buscar todos os dados faltantes do agendamento
+            //int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
+            //int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
+
+
             PrintAnimal.PrintPet(pet); //apenas para teste, retirar depois
             Console.ReadKey();
             Console.Clear();
