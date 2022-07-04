@@ -60,10 +60,10 @@ Seu pet tomou alguma vacina recentemente? Digite:
 
         // incluir a opção "sair" no método de verificação de serviços
         public const string AskServiceType = @"
-Qual o serviço desejado? Digite:
-1 - Banho
-2 - Tosa
-3 - Sair";
+Qual o serviço desejado? Digite:";
+        public const string AskCutType = "Qual o tipo de tosa a ser realizado?";
+        public const string AskSpecial = "É um serviço especial (S/N)?";
+        public const string AskLotion = "Esse serviço utilizará loção(S/N)?";
 
         public const string AskRemark = @"
 Gostaria de deixar alguma observação? 

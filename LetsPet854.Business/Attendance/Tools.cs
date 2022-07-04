@@ -1,4 +1,7 @@
-﻿using LetsPet854.Domain.Pets;
+﻿using LetsPet854.Business.Pets;
+using LetsPet854.Domain;
+using LetsPet854.Domain.Common.Enuns;
+using LetsPet854.Domain.Pets;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,11 +28,98 @@ namespace LetsPet854.Business.Attendance
             }
             return "";
         }
+        public static bool GetTutorCPF(string askCPFTutor, string recuseByNull, string recuseByInvalidCPF, ref string cpf)
+        {
+            string resposta = Business.Common.Validation.ValidateStringInput(askCPFTutor, recuseByNull);
+            if (!Business.Common.Validation.IsCpfValid(resposta) || !Business.Attendance.Validation.ValidCPF(resposta))
+            {
+                Console.WriteLine(recuseByInvalidCPF);
+                return false;
+            }
+            return true;
+        }
+
+        public static bool GetTutorRegistration(string notRegisteredTutor, string cpf, ref Guardian tutor)
+        {
+            tutor = SearchGuardian.SearchGuardianByCPF(cpf);
+            if (tutor == null)
+            {
+                Console.WriteLine(notRegisteredTutor);
+                Console.ReadKey();
+                GuardianRegister.RegisterGuardian();
+                return false; //retorna para agendamento após cadastro do tutor
+            }
+            return true;
+        }
         public static Animal GetPetByName(string petName, List<Animal> PetList)
         {
             Animal petMatches = PetList.Find(x => x.Name == petName);
 
             return petMatches;
         }
+
+        public static Service ScheduleService(string tipoServico, string tipoTosa, string especial, string locao, Animal pet)
+        {
+            Service newService = new();
+            Console.WriteLine(tipoServico);
+            PrintEnum.ServiceType();
+            newService.Type = Enum.GetName(typeof(ServiceType), Validations.Options(1, 2));
+
+            if (newService.Type == "Tosa")
+            {
+                Console.WriteLine(tipoTosa);
+                PrintEnum.GroomingType();
+                newService.GroomingType = Enum.GetName(typeof(GroomingType), Validations.Options(1, 3));
+            }
+            else
+                newService.GroomingType = null;
+
+            newService.Species = pet.Species.ToString();
+            newService.Size = pet.BreedSize.ToString();
+            newService.Employees = (newService.Size == "Grande") ? 2 : 1;
+            Console.WriteLine(especial);
+            newService.Special = Validations.YesOrNo();
+            Console.WriteLine(locao);
+            newService.Lotion = Validations.YesOrNo();
+
+            Service catalogedService = SearchServiceBySchedule(pet, newService);
+            if (catalogedService == null)
+                return catalogedService;
+            /*Console.WriteLine("Qual o nome deste serviço?");
+            newService.Name = Validations.ExistentName();*/
+            //criar um lógica de busca do NOME para o serviço com estas características dentro de Registration.ServicesList
+            newService.Name = catalogedService.Name;
+
+            /*Console.WriteLine("Qual o valor deste serviço?");
+            newService.Price = Validations.ValidDouble();*/
+            //criar um lógica de busca do PRECO para o serviço com estas características dentro de Registration.ServicesList
+            newService.ServiceTime = catalogedService.ServiceTime;
+            newService.Price = catalogedService.Price;
+            //Console.WriteLine("Cadastro Realizado!\n");
+
+            //ShowInfo.ByName(newService.Name);
+            return newService;
+        }
+        public static Service SearchServiceBySchedule(Animal pet, Service newService)
+        {
+            var FilteredService = (
+                from service in Registration.ServicesList
+                where service.Type.Equals(newService.Type)
+                && service.GroomingType.Equals(newService.GroomingType)
+                && service.Species.Equals(pet.Species.ToString())
+                && service.Size.Equals(pet.BreedSize.ToString())
+                && service.Employees.Equals(newService.Employees)
+                && service.Special.Equals(newService.Special)
+                && service.Lotion.Equals(newService.Lotion)
+                select service
+                );
+            if (FilteredService.Count() == 0)
+            {
+                Console.WriteLine($"Nenhum serviço com as características listadas foi encontrado no sistema.");
+                return null;
+            }
+            return FilteredService.First();
+        }
+
     }
 }

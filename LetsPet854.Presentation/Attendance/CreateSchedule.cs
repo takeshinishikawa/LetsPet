@@ -20,21 +20,27 @@ namespace LetsPet854.Presentation.Attendance
         {
             Console.Clear();
             Console.WriteLine(Messages.HeaderAgendar);
-            string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskCPFTutor, Messages.RecuseByNull);
+            /*string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskCPFTutor, Messages.RecuseByNull);
             if (!Business.Common.Validation.IsCpfValid(resposta) || !Business.Attendance.Validation.ValidCPF(resposta))
             {
                 Console.WriteLine(Messages.RecuseByInvalidCPF);
                 CreateScheduleMain();
-            }
-            var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
+            }*/
+            string CPF = null;
+            Guardian Tutor = null;
+            if (!Tools.GetTutorCPF(Messages.AskCPFTutor, Messages.RecuseByNull, Messages.RecuseByInvalidCPF, ref CPF) || !Tools.GetTutorRegistration(Messages.notRegisteredCPFTutor, CPF, ref Tutor))
+                CreateScheduleMain();
+
+            /*var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
             if (guardianSearchResult == null)
             {
                 Console.WriteLine(Messages.notRegisteredCPFTutor);
                 Console.ReadKey();
                 GuardianRegister.RegisterGuardian();
                 CreateScheduleMain(); //retorna para agendamento após cadastro do tutor
-            }
-            string tempCPF = resposta;
+            }*/
+            
+            
             //verificar quantidade de animais
             if (guardianSearchResult.PetList.Count() < 0)
             {
@@ -78,8 +84,14 @@ namespace LetsPet854.Presentation.Attendance
             }
 
             //método para buscar todos os dados faltantes do agendamento
+
+            // -->SCHEDULESERVICE
+            //--> ASK_REMARK se service.Special for true
+
             //int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
             //int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
+
+            Service servico = Tools.ScheduleService(Messages.AskServiceType, Messages.AskCutType, Messages.AskSpecial, Messages.AskLotion, pet);
 
 
             PrintAnimal.PrintPet(pet); //apenas para teste, retirar depois
