@@ -10,7 +10,7 @@ using LetsPet854.Domain;
 using LetsPet854.Presentation.Animals;
 using LetsPet854.Presentation.Attendance;
 using LetsPet854.Business.Common;
-
+using LetsPet854.Business;
 
 namespace LetsPet854.Presentation.Attendance
 {
@@ -26,9 +26,9 @@ namespace LetsPet854.Presentation.Attendance
                 Console.WriteLine(Messages.RecuseByInvalidCPF);
                 CreateScheduleMain();
             }*/
-            string CPF = null;
-            Guardian Tutor = null;
-            if (!Tools.GetTutorCPF(Messages.AskCPFTutor, Messages.RecuseByNull, Messages.RecuseByInvalidCPF, ref CPF) || !Tools.GetTutorRegistration(Messages.notRegisteredCPFTutor, CPF, ref Tutor))
+            string cpf = null;
+            Guardian tutor = null;
+            if (!Tools.GetTutorCPF(Messages.AskCPFTutor, Messages.RecuseByNull, Messages.RecuseByInvalidCPF, ref cpf) || !Tools.GetTutorRegistration(Messages.notRegisteredCPFTutor, cpf, ref tutor) || !Business.Attendance.Validation.HasPetsRegistered(Messages.RecuseByNullPetList, tutor))
                 CreateScheduleMain();
 
             /*var guardianSearchResult = SearchGuardian.SearchGuardianByCPF(resposta);
@@ -39,34 +39,37 @@ namespace LetsPet854.Presentation.Attendance
                 GuardianRegister.RegisterGuardian();
                 CreateScheduleMain(); //retorna para agendamento após cadastro do tutor
             }*/
-            
-            
+
+
             //verificar quantidade de animais
-            if (guardianSearchResult.PetList.Count() < 0)
+            /*if (tutor.PetList.Count() == 0)
             {
                 Console.WriteLine(Messages.RecuseByNullPetList);
                 Console.ReadKey();
                 RegisterAnimal.AnimalRegister();
-            }
-            
-            int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
+            }*/
+
+            int opcaoMax = Messages.OpcaoPet(tutor);
             int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
 
-            Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref guardianSearchResult, opcao), guardianSearchResult.PetList);
-            if (pet.TwoMonthsBool())
+            Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref tutor, opcao), tutor.PetList);
+            if (!Business.Attendance.Validation.HasMinAge(Messages.RecuseByAge, pet) || !Business.Attendance.Validation.CheckPetAgressiveness(Messages.AskAgressiveness, Messages.InvalidOption, Messages.RecuseByAgressiveness, ref pet))
+                return;
+
+            /*if (pet.TwoMonthsBool())
             {
                 Console.WriteLine(Messages.RecuseByAge);
                 Console.ReadKey();
                 return;
-            }
+            }*/
             //INCLUIR AQUI VALIDAÇÃO DE VACINAS <-----------------------------------------------------
 
             //isAgressive() <- verificar para atualizar agressividade
-            if (!pet.AggressiveBool)
+            /*if (!pet.AggressiveBool)
             {
                 VerificarAgressividade:
                 int respostaInt;
-                resposta = Business.Common.Validation.ValidateStringInput(Messages.AskAgressiveness, Messages.InvalidOption);
+                string resposta = Business.Common.Validation.ValidateStringInput(Messages.AskAgressiveness, Messages.InvalidOption);
                 bool ehNum = int.TryParse(resposta, out respostaInt);
                 if (!ehNum || !Business.Attendance.Validation.CheckAnswer(respostaInt))
                 {
@@ -81,7 +84,8 @@ namespace LetsPet854.Presentation.Attendance
                 Console.WriteLine(Messages.RecuseByAgressiveness);
                 Console.ReadKey();
                 return;
-            }
+            }*/
+
 
             //método para buscar todos os dados faltantes do agendamento
 
@@ -91,9 +95,19 @@ namespace LetsPet854.Presentation.Attendance
             //int opcaoMax = Messages.OpcaoPet(guardianSearchResult);
             //int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
 
-            Service servico = Tools.ScheduleService(Messages.AskServiceType, Messages.AskCutType, Messages.AskSpecial, Messages.AskLotion, pet);
+            Service service = Tools.ScheduleService(Messages.AskServiceType, Messages.AskCutType, Messages.AskSpecial, Messages.AskLotion, Messages.ServiceNotFound, pet);
+            if (service == null)
+                return;
+            //ShowInfo.ByName(service.Name);//apenas para teste, retirar depois
+            string notes = "";
+            Tools.AskRemark(Messages.AskRemark, Messages.InformRemark, Messages.RecuseByNull, ref notes);
+            Tools.AskAttendantEvaluation(Messages.AskSpecialNeeds, ref service, ref pet);
+            if (service == null)
+                return;
+            //verificar se existe observação, caso positivo, será necessário verificar novamente se é especial se sim, deverá atualizar o serviço
 
 
+            ShowInfo.ByName(service.Name);//apenas para teste, retirar depois
             PrintAnimal.PrintPet(pet); //apenas para teste, retirar depois
             Console.ReadKey();
             Console.Clear();

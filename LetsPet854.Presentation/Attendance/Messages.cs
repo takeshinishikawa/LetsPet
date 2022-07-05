@@ -61,20 +61,25 @@ Seu pet tomou alguma vacina recentemente? Digite:
         // incluir a opção "sair" no método de verificação de serviços
         public const string AskServiceType = @"
 Qual o serviço desejado? Digite:";
-        public const string AskCutType = "Qual o tipo de tosa a ser realizado?";
-        public const string AskSpecial = "É um serviço especial (S/N)?";
-        public const string AskLotion = "Esse serviço utilizará loção(S/N)?";
-
+        public const string AskCutType = @"
+Qual o tipo de tosa a ser realizado?";
+        public const string AskSpecial = @"
+É um serviço especial (S/N)?";
+        public const string AskLotion = @"
+Esse serviço utilizará loção(S/N)?";
+        public const string ServiceNotFound = @"
+O serviço solicitado não está disponível.";
         public const string AskRemark = @"
-Gostaria de deixar alguma observação? 
-(Ex: o pet está no cio, o pet está com a pata machucada, etc.)";
-
+Gostaria de deixar alguma observação? (Ex: o pet está no cio, o pet está com a pata machucada, etc.)
+S - Sim
+N - Não";
+        public const string InformRemark = @"
+Qual a observação";
         public const string AskSpecialNeeds = @"
 De acordo com a observação do tutor, pode-se considerar que o pet possui alguma necessidade especial?
 Digite:
-1 - Sim
-2 - Não
-3 - Sair";
+S - Sim
+N - Não";
 
         public const string AskDateScheduling = @"Em qual data gostaria de realizar o agendamento? (dd/mm/aaaa)";
 

@@ -30,8 +30,8 @@ namespace LetsPet854.Business.Attendance
         }
         public static bool GetTutorCPF(string askCPFTutor, string recuseByNull, string recuseByInvalidCPF, ref string cpf)
         {
-            string resposta = Business.Common.Validation.ValidateStringInput(askCPFTutor, recuseByNull);
-            if (!Business.Common.Validation.IsCpfValid(resposta) || !Business.Attendance.Validation.ValidCPF(resposta))
+            cpf = Business.Common.Validation.ValidateStringInput(askCPFTutor, recuseByNull);
+            if (!Business.Common.Validation.IsCpfValid(cpf) || !Business.Attendance.Validation.ValidCPF(cpf))
             {
                 Console.WriteLine(recuseByInvalidCPF);
                 return false;
@@ -58,7 +58,7 @@ namespace LetsPet854.Business.Attendance
             return petMatches;
         }
 
-        public static Service ScheduleService(string tipoServico, string tipoTosa, string especial, string locao, Animal pet)
+        public static Service ScheduleService(string tipoServico, string tipoTosa, string especial, string locao, string servicoNaoEncontrado, Animal pet)
         {
             Service newService = new();
             Console.WriteLine(tipoServico);
@@ -84,7 +84,10 @@ namespace LetsPet854.Business.Attendance
 
             Service catalogedService = SearchServiceBySchedule(pet, newService);
             if (catalogedService == null)
+            {
+                Console.WriteLine(servicoNaoEncontrado);
                 return catalogedService;
+            }
             /*Console.WriteLine("Qual o nome deste serviço?");
             newService.Name = Validations.ExistentName();*/
             //criar um lógica de busca do NOME para o serviço com estas características dentro de Registration.ServicesList
@@ -102,10 +105,12 @@ namespace LetsPet854.Business.Attendance
         }
         public static Service SearchServiceBySchedule(Animal pet, Service newService)
         {
-            var FilteredService = (
+            if (newService.Type == "Banho")
+            {
+                var FilteredService = (
                 from service in Registration.ServicesList
                 where service.Type.Equals(newService.Type)
-                && service.GroomingType.Equals(newService.GroomingType)
+                //&& service.GroomingType.Equals(newService.GroomingType)
                 && service.Species.Equals(pet.Species.ToString())
                 && service.Size.Equals(pet.BreedSize.ToString())
                 && service.Employees.Equals(newService.Employees)
@@ -113,12 +118,56 @@ namespace LetsPet854.Business.Attendance
                 && service.Lotion.Equals(newService.Lotion)
                 select service
                 );
-            if (FilteredService.Count() == 0)
-            {
-                Console.WriteLine($"Nenhum serviço com as características listadas foi encontrado no sistema.");
-                return null;
+                if (FilteredService.Count() == 0)
+                {
+                    Console.WriteLine($"Nenhum serviço com as características listadas foi encontrado no sistema.");
+                    return null;
+                }
+                return FilteredService.First();
             }
-            return FilteredService.First();
+            else
+            {
+                var FilteredService = (
+                    from service in Registration.ServicesList
+                    where service.Type.Equals(newService.Type)
+                    && service.GroomingType.Equals(newService.GroomingType)
+                    && service.Species.Equals(pet.Species.ToString())
+                    && service.Size.Equals(pet.BreedSize.ToString())
+                    && service.Employees.Equals(newService.Employees)
+                    && service.Special.Equals(newService.Special)
+                    && service.Lotion.Equals(newService.Lotion)
+                    select service
+                    );
+                if (FilteredService.Count() == 0)
+                {
+                    Console.WriteLine($"Nenhum serviço com as características listadas foi encontrado no sistema.");
+                    return null;
+                }
+                return FilteredService.First();
+            }
+        }
+        public static bool basicCheck(string message)
+        {
+            Console.WriteLine(message);
+            return Validations.YesOrNo();
+        }
+        public static void AskRemark(string askRemark, string informRemark, string recuseByNull, ref string notes)
+        {
+            if (Tools.basicCheck(askRemark))
+                Tools.GetRemark(informRemark, recuseByNull, ref notes);
+        }
+        private static void GetRemark(string informRemark, string recuseByNull, ref string notes)
+        {
+            notes = Common.Validation.ValidateStringInput(informRemark, recuseByNull);
+        }
+        public static void AskAttendantEvaluation(string askSpecialNeeds, ref Service service, ref Animal pet)
+        {
+            if (!service.Special)
+            {
+                service.Special = Tools.basicCheck(askSpecialNeeds);
+                if (service.Special)
+                    service = Tools.SearchServiceBySchedule(pet, service);
+            }
         }
 
     }

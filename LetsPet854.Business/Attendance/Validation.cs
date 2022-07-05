@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LetsPet854.Business.Pets;
 using LetsPet854.Domain.Common.Enuns;
 using LetsPet854.Domain.Pets;
 
@@ -159,6 +160,53 @@ namespace LetsPet854.Business.Attendance
             {
                 return true;
             }
+        }
+
+        public static bool HasPetsRegistered(string recuseByNullPetList, Guardian tutor)
+        {
+            if (tutor.PetList.Count() == 0)
+            {
+                Console.WriteLine(recuseByNullPetList);
+                Console.ReadKey();
+                RegisterAnimal.AnimalRegister();
+                return false;
+            }
+            return true;
+        }
+
+        public static bool HasMinAge(string recusedByAge, Animal pet)
+        {
+            if (pet.TwoMonthsBool())
+            {
+                Console.WriteLine(recusedByAge);
+                Console.ReadKey();
+                return false;
+            }
+            return true;
+        }
+        public static bool CheckPetAgressiveness(string askAgressiveness, string invalidOption, string recuseByAgressiveness, ref Animal pet)
+        {
+            if (!pet.AggressiveBool)
+            {
+            VerificarAgressividade:
+                int respostaInt;
+                string resposta = Business.Common.Validation.ValidateStringInput(askAgressiveness, invalidOption);
+                bool ehNum = int.TryParse(resposta, out respostaInt);
+                if (!ehNum || !Business.Attendance.Validation.CheckAnswer(respostaInt))
+                {
+                    Console.WriteLine(invalidOption);
+                    goto VerificarAgressividade;
+                }
+                else if (respostaInt == 1)
+                    pet.AggressiveBool = true;
+            }
+            if (pet.AggressiveBool)
+            {
+                Console.WriteLine(recuseByAgressiveness);
+                Console.ReadKey();
+                return false;
+            }
+            return true;
         }
     }
 

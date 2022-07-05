@@ -1,4 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿using LetsPet854.Business.Pets;
+using LetsPet854.Domain.Pets;
+using System.Text.RegularExpressions;
 
 namespace LetsPet854.Business
 {
