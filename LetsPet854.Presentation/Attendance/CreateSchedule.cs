@@ -29,7 +29,7 @@ namespace LetsPet854.Presentation.Attendance
             int opcao = Business.Attendance.Validation.ValidateIntIntervalInput(opcaoMax, Messages.SelectPetNumber, "Este valor está fora do intervalo listado.");
 
             Animal pet = Tools.GetPetByName(Tools.SelecionaAnimal(ref tutor, opcao), tutor.PetList);
-            if (!Business.Attendance.Validation.HasMinAge(Messages.RecuseByAge, pet) || !Business.Attendance.Validation.CheckPetAgressiveness(Messages.AskAgressiveness, Messages.InvalidOption, Messages.RecuseByAgressiveness, ref pet))
+            if (!Business.Attendance.Validation.HasMinAge(Messages.RecuseByAge, pet) || !Business.Attendance.Validation.CheckPetAgressiveness(Messages.AskAgressiveness, Messages.InvalidOption, Messages.RecuseByAgressiveness, ref pet) || !Business.Attendance.Validation.CheckRageVaccine(pet, "raiva") && !Business.Attendance.Validation.CheckRecentVaccine(pet, "raiva", Messages.AskRecentVaccine))
                 return;
             Service service = Tools.ScheduleService(Messages.AskServiceType, Messages.AskCutType, Messages.AskSpecial, Messages.AskLotion, Messages.ServiceNotFound, pet);
             if (service == null)

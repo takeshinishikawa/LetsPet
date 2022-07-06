@@ -210,9 +210,9 @@ namespace LetsPet854.Business.Attendance
             return true;
         }
 
-        public static bool CheckRageVaccine(Animal pet, string vacina)
+        public static bool CheckRageVaccine(Animal pet, string vaccine)
         {
-            bool VaccineMatch = pet.PetVaccineList.Any(x => x.Equals(vacina)); //tudo referente ao rage pode tirar, para deixar mais genérico
+            bool VaccineMatch = pet.PetVaccineList.Any(x => x.Equals(vaccine));
 
             if (VaccineMatch == true)
             {
@@ -225,12 +225,12 @@ namespace LetsPet854.Business.Attendance
             }
         }
 
-        public bool CheckNewVaccine (Animal pet, string vacina, string message)
+        public static bool CheckRecentVaccine (Animal pet, string vaccine, string AskNewVaccine)
         {
             int answer;
             do
             {
-                Console.WriteLine(message);
+                Console.WriteLine(AskNewVaccine);
                 int.TryParse(Console.ReadLine(), out answer);
                 CheckAnswer(answer);
             } while (CheckAnswer(answer) == false);
@@ -242,7 +242,7 @@ namespace LetsPet854.Business.Attendance
                     return true;
 
                 case 2:
-                    Console.WriteLine($"O pet não pode ser atendido, pois não contém a vacina de {vacina} aplicada.");
+                    Console.WriteLine($"O pet não pode ser atendido, pois não contém a vacina de {vaccine} aplicada.");
                     //CHAMAR PARA O MENU PRINCIPAL!
                     return false;
 
