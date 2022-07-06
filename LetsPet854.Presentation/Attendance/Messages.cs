@@ -83,7 +83,7 @@ N - Não";
 
         public const string AskDateScheduling = @"Em qual data gostaria de realizar o agendamento? (dd/mm/aaaa)";
 
-        public const string AskWhatTime = @"Em qual horário?";
+        public const string AskWhatTime = @"Em qual horário? (hh:mm)";
 
         public const string AskAnotherDateTime = @"
 Poxa, infelizmente esse horário não está disponível :(
