@@ -210,48 +210,48 @@ namespace LetsPet854.Business.Attendance
             return true;
         }
 
-        public static bool CheckRageVaccine(Animal pet)
+        public static bool CheckRageVaccine(Animal pet, string vacina)
         {
-            var vacina = "Raiva";
-            bool rageVaccineMatch = pet.PetVaccineList.Any(x => x.Equals(vacina));
+            bool VaccineMatch = pet.PetVaccineList.Any(x => x.Equals(vacina)); //tudo referente ao rage pode tirar, para deixar mais genérico
 
-            if (rageVaccineMatch == true)
+            if (VaccineMatch == true)
             {
                 return true;
             }
 
             else
             {
-                int answer;
-                do
-                {
-                    Console.WriteLine("Tomou a vacina de raiva recentemente?\r\n1- Sim\r\n2- Não\r\n3- Sair\r\n4- Retornar");
-                    int.TryParse(Console.ReadLine(), out answer);
-                    CheckAnswer(answer);
-                } while (CheckAnswer(answer) == false);
+                return false;
+            }
+        }
 
-                switch(answer)
-                {
-                    case 1:
-                        //SQUAD PETS AINDA NÃO TEM MÉTODO PARA ADICIONAR VACINA, AGUARDAR ATUALIZAÇÃO
-                        return true;
+        public bool CheckNewVaccine (Animal pet, string vacina, string message)
+        {
+            int answer;
+            do
+            {
+                Console.WriteLine(message);
+                int.TryParse(Console.ReadLine(), out answer);
+                CheckAnswer(answer);
+            } while (CheckAnswer(answer) == false);
 
-                    case 2:
-                        Console.WriteLine("O pet não pode ser atendido, pois não contém a vacina de raiva aplicada.");
-                        //CHAMAR PARA O MENU PRINCIPAL!
-                        return false;
+            switch (answer)
+            {
+                case 1:
+                    //ADICIONAR MÉTODO E CONFERIR QUESTÃO DE VALIDADE DA VACINA (TEMPO DE DURAÇÃO DA DOSE)!!
+                    return true;
 
-                    case 3:
-                        //CHAMAR PARA RETORNAR
-                        return false;
+                case 2:
+                    Console.WriteLine($"O pet não pode ser atendido, pois não contém a vacina de {vacina} aplicada.");
+                    //CHAMAR PARA O MENU PRINCIPAL!
+                    return false;
 
-                    case 4:
-                        //CHAMAR PARA MENU PRINCIPAL
-                        return false;
+                case 3:
+                    //CHAMAR PARA MENU PRINCIPAL
+                    return false;
 
-                    default:
-                        return false;
-                }
+                default:
+                    return false;
             }
         }
     }
