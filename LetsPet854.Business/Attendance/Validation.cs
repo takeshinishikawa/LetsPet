@@ -19,6 +19,7 @@ namespace LetsPet854.Business.Attendance
             }
             else
             {
+                Console.WriteLine("Opção inválida, por favor digite alguma das alternativas.");
                 return false;
             }
         }
@@ -207,6 +208,53 @@ namespace LetsPet854.Business.Attendance
                 return false;
             }
             return true;
+        }
+
+        public static bool CheckRageVaccine (Animal pet)
+        {
+            var vacina = "Raiva";
+            bool rageVaccineMatch = pet.PetVaccineList.Any(x => x.Equals(vacina));
+
+            if (rageVaccineMatch == true)
+            {
+                return true;
+            }
+
+            else
+            {
+                    int answer;
+                    do 
+                    {
+                    Console.WriteLine("Tomou a vacina de raiva recentemente?\r\n1- Sim\r\n2- Não\r\n3- Sair\r\n4- Retornar");
+                    int.TryParse(Console.ReadLine(), out answer);
+                    CheckAnswer(answer);
+                    } while(CheckAnswer(answer) == false);
+
+                    if (answer == 1)
+                    {
+                        //SQUAD PETS AINDA NÃO TEM MÉTODO PARA ADICIONAR VACINA, AGUARDAR ATUALIZAÇÃO
+                        return true;
+                    }
+
+                    else if (answer == 2)
+                    {
+                        Console.WriteLine("O pet não pode ser atendido, pois não contém a vacina de raiva aplicada.");
+                        //CHAMAR PARA O MENU PRINCIPAL!
+                        return false;
+                    }
+
+                    else if (answer == 3)
+                    {
+                        //CHAMAR PARA RETORNAR
+                        return false;
+                    }
+
+                    else
+                    {
+                    //CHAMAR PARA MENU PRINCIPAL
+                    return false;
+                    }
+            }
         }
     }
 
