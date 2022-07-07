@@ -125,5 +125,10 @@ Gostaria de escolher algum outro? Digite:
 2 - Não
 3 - Sair";
 
+        public const string PaymentMethod = @"Qual o método de pagamento?
+1 - Dinheiro
+2 - Pix
+3 - Cartão";
+
     }
 }
