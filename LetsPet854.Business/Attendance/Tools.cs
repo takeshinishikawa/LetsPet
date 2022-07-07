@@ -2,6 +2,7 @@
 using LetsPet854.Domain;
 using LetsPet854.Domain.Common.Enuns;
 using LetsPet854.Domain.Pets;
+using LetsPet854.Domain.Attendence;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,6 +168,23 @@ namespace LetsPet854.Business.Attendance
                 service.Special = Tools.basicCheck(askSpecialNeeds);
                 if (service.Special)
                     service = Tools.SearchServiceBySchedule(pet, service);
+            }
+        }
+
+        public static void SetIncidentNotes(string incidentNotes, Schedule schedule)
+        {
+            schedule.Notes += " Incidente relatado durante o atendimento: " + incidentNotes;
+        }
+
+        public static double GetServicePrice(Schedule schedule)
+        {
+            if (!schedule.TempSpecialNeeds)
+            {
+                return schedule.Service.Price;
+            }
+            else
+            {   //verificar cálculo do serviço neste caso
+                return schedule.Service.Price;
             }
         }
 
